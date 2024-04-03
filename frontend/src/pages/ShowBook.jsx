@@ -1,7 +1,4 @@
 const ShowBook = () => {
-  return (
-    <div>ShowBook</div>
-  )
-}
-
-export default ShowBook
+  return <div>ShowBook</div>;
+};
+export default ShowBook;

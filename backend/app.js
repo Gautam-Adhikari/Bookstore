@@ -2,10 +2,12 @@ import express from "express";
 import 'dotenv/config'
 import dbConnect from "./dbConnect.js";
 import bookRoute from "./routes/bookroute.js";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());   //set the server to accept json data from the frontend(postman/thunderclient)
+app.use(cors());
 
 const PORT = process.env.PORT;
 

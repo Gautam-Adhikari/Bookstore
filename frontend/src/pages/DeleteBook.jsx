@@ -1,7 +1,4 @@
 const DeleteBook = () => {
-  return (
-    <div>DeleteBook</div>
-  )
-}
-
-export default DeleteBook
+  return <div>DeleteBook</div>;
+};
+export default DeleteBook;
