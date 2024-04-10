@@ -1,5 +1,11 @@
 import axios from "axios";      //server hit/ to hit api of backend (api call)
 import { useEffect, useState } from "react";        //to render the component/page/data
+import SERVER_URL from "../ServerURL"
+import { PiInfoFill } from "react-icons/pi";
+import { BiSolidMessageRoundedEdit } from "react-icons/bi";
+import { RiDeleteBinFill } from "react-icons/ri";
+import { MdAddCircle } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 //Home is a component
 const Home = () => {
@@ -8,7 +14,7 @@ const Home = () => {
   const fetchBook = async () => {
     try {
       setLoading(true);
-      const resp = await axios.get("http://localhost:3000/book");
+      const resp = await axios.get(`${SERVER_URL}/book`);
       console.log(resp.data);
       setBooks(resp.data.data);
       setLoading(false);
@@ -19,41 +25,48 @@ const Home = () => {
   };
   useEffect(() => {
     fetchBook();
-  }, []);
-  return (
+  }, []);           //dependency array-> activate only once
+  return (            // use return for html content
     <>
-      <div className="">
-        <div className="">
-          <h2>Book Store</h2>
-        </div>
+     <h2 className="text-3xl bg-sky-700 text-white p-4">Book Store</h2>
+
+      <div className="p-4">
+      <Link to="/books/create">
+      <MdAddCircle className="text-4xl text-blue-800"/>
+      </Link>
+        <div className="flex justify-between items-center">
+        
         {loading ? (
           <h3>Loading...</h3>
         ) : (
-          <table>
+          <table className="w-full border-separate border-spacing-2">
             <thead>
               <tr>
-                <th>Sno</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Year</th>
-                <th>Options</th>
+                <th className="border border-slate-500 rounded-md">Sno</th>
+                <th className="border border-slate-500 rounded-md">Title</th>
+                <th className="border border-slate-500 rounded-md">Author</th>
+                <th className="border border-slate-500 rounded-md">Year</th>
+                <th className="border border-slate-500 rounded-md">Options</th>
               </tr>
             </thead>
             <tbody>
               {books.map((book, index) => {
                 return (
                   <tr key={book._id}>
-                    <td>{index + 1}</td>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                    <td>{book.year}</td>
-                    <td>todo</td>
+                    <td className="border border-slate-500 rounded-md text-center">{index + 1}</td>
+                    <td className="border border-slate-500 rounded-md text-center">{book.title}</td>
+                    <td className="border border-slate-500 rounded-md text-center">{book.author}</td>
+                    <td className="border border-slate-500 rounded-md text-center">{book.year}</td>
+                    <td className="border border-slate-500 rounded-md text-center flex justify-center"><Link to={`/books/${book.id}`}><PiInfoFill className="text-2xl text-white-400"/></Link>
+                    <Link to={`/books/edit/${book.id}`}><BiSolidMessageRoundedEdit className="text-2xl text-green-400" /></Link>
+                    <Link to={`/books/delete/${book.id}`}><RiDeleteBinFill className="text-2xl text-red-600" /></Link></td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         )}
+        </div>
       </div>
     </>
   );
