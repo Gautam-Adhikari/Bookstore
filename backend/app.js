@@ -25,6 +25,8 @@ const start = async ()=>{
 
 start();
 
+app.use(express.static("public"));
+
 
 app.get("/",(req,res)=>{
     res.send('<h1>Welcome to Book Store</h1>')

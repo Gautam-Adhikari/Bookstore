@@ -6,6 +6,7 @@ import { BiSolidMessageRoundedEdit } from "react-icons/bi";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { MdAddCircle } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import Spinner from "../components/Spinner";
 
 //Home is a component
 const Home = () => {
@@ -37,7 +38,7 @@ const Home = () => {
         <div className="flex justify-between items-center">
         
         {loading ? (
-          <h3>Loading...</h3>
+          <Spinner/>
         ) : (
           <table className="w-full border-separate border-spacing-2">
             <thead>
@@ -57,9 +58,10 @@ const Home = () => {
                     <td className="border border-slate-500 rounded-md text-center">{book.title}</td>
                     <td className="border border-slate-500 rounded-md text-center">{book.author}</td>
                     <td className="border border-slate-500 rounded-md text-center">{book.year}</td>
-                    <td className="border border-slate-500 rounded-md text-center flex justify-center"><Link to={`/books/${book.id}`}><PiInfoFill className="text-2xl text-white-400"/></Link>
-                    <Link to={`/books/edit/${book.id}`}><BiSolidMessageRoundedEdit className="text-2xl text-green-400" /></Link>
-                    <Link to={`/books/delete/${book.id}`}><RiDeleteBinFill className="text-2xl text-red-600" /></Link></td>
+                    <td className="border border-slate-500 rounded-md text-center flex justify-center">
+                      <Link to={`/books/${book._id}`}><PiInfoFill className="text-2xl text-white-400"/></Link>
+                    <Link to={`/books/edit/${book._id}`}><BiSolidMessageRoundedEdit className="text-2xl text-green-400" /></Link>
+                    <Link to={`/books/delete/${book._id}`}><RiDeleteBinFill className="text-2xl text-red-600" /></Link></td>
                   </tr>
                 );
               })}

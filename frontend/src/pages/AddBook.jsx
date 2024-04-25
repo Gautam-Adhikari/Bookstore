@@ -2,6 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import SERVER_URL from "../ServerURL";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/BackButton";
+import Spinner from "../components/Spinner";
+import { enqueueSnackbar } from "notistack";
 
 const AddBook = () => {
   const [loading,setLoading] = useState(false);
@@ -16,9 +19,10 @@ const AddBook = () => {
       setLoading(true);
       const resp = await axios.post(`${SERVER_URL}/book`, data);
       setLoading(false);
+      enqueueSnackbar("Book added successfully",{variant:"success"})
       navigate("/");
     } catch (error) {
-      console.log(error);
+      enqueueSnackbar("Error",{variant:"error"})
       setLoading(false);
     }
   };
@@ -27,7 +31,8 @@ const AddBook = () => {
     <h1 className="text-3xl bg-sky-700 text-white p-4 text-center">
       Add new Book
     </h1>
-    {loading ? <h2>Loading...</h2> : "" }
+    <BackButton/>
+    {loading ? <Spinner/> : "" }
     <div className="flex flex-col border-2 border-sky-300 rounded-sm w-[600px] p-4 mx-auto my-4">
     <div className='my-4'>
       <label className="text-xl mr-4 text-gray-400">Title</label>
